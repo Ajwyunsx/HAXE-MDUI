@@ -35,7 +35,11 @@ jobs:
           haxelib list
           
       - name: Clean previous build
-        run: rm -rf ./bin
+        run: |
+          rm -rf ./bin
+          mkdir ./bin
+
+      
           
       - name: Compile
         run: haxe build.hxml
