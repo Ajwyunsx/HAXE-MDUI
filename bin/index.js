@@ -9,40 +9,80 @@ function $extend(from, fields) {
 var Main = function() { };
 Main.__name__ = true;
 Main.main = function() {
-	psychmdui_PsychMdui.init();
+	psychmdui_core_PsychMdui.init();
 	Main.createExampleApp();
 };
 Main.createExampleApp = function() {
-	var container = psychmdui_PsychMdui.createLayout("container");
-	var appBar = psychmdui_PsychMdui.createElement("div","psych-app-bar");
-	appBar.innerHTML = "\r\n            <h1 class=\"psych-title\">PsychMDUI - 简洁现代的Web组件库</h1>\r\n            <button class=\"psych-btn psych-btn-primary\" onclick=\"location.reload()\">刷新</button>\r\n        ";
-	window.document.body.appendChild(appBar);
-	var welcomeCard = psychmdui_PsychMdui.createCard("欢迎使用PsychMDUI","这是一个基于Haxe开发的简洁现代Web组件库。采用扁平化设计风格，提供直观易用的API接口。",["开始使用","查看文档","运行示例"]);
-	var demoCard = psychmdui_PsychMdui.createCard("功能演示","点击下面的按钮体验不同的功能：",[]);
-	var buttonContainer = psychmdui_PsychMdui.createElement("div","flex gap-8");
-	var btn1 = psychmdui_PsychMdui.createButton("显示通知",function() {
-		psychmdui_PsychMdui.showNotification("这是一个成功通知！");
+	var container = psychmdui_components_Layout.createContainer("container");
+	var refreshButton = psychmdui_components_Button.createButton("刷新",function() {
+		window.location.reload();
 	},"primary");
-	var btn2 = psychmdui_PsychMdui.createButton("弹出对话框",function() {
-		psychmdui_PsychMdui.createDialog("对话框示例","这是一个使用PsychMDUI创建的对话框。你可以自定义标题、内容和按钮。",["查看详情","关闭"]);
+	var appBar = psychmdui_components_Layout.createAppBar("PsychMDUI - 简洁现代的Web组件库",[refreshButton]);
+	window.document.body.appendChild(appBar);
+	var welcomeCard = psychmdui_components_Layout.createCard("欢迎使用PsychMDUI","这是一个基于Haxe开发的简洁现代Web组件库。采用扁平化设计风格，提供直观易用的API接口。",["开始使用","查看文档","运行示例"]);
+	var demoCard = psychmdui_components_Layout.createCard("功能演示","点击下面的按钮体验不同的功能：",[]);
+	var buttonContainer = psychmdui_core_PsychMdui.createElement("div","flex gap-8");
+	var btn1 = psychmdui_components_Button.createButton("显示通知",function() {
+		psychmdui_components_Feedback.showSuccess("这是一个成功通知！");
+	},"primary");
+	var btn2 = psychmdui_components_Button.createButton("弹出对话框",function() {
+		psychmdui_components_Feedback.createDialog("对话框示例","这是一个使用PsychMDUI创建的对话框。你可以自定义标题、内容和按钮。",["查看详情","关闭"]);
 	},"secondary");
-	var btn3 = psychmdui_PsychMdui.createButton("提交",function() {
-		psychmdui_PsychMdui.showNotification("表单提交成功！");
+	var btn3 = psychmdui_components_Button.createButton("提交",function() {
+		psychmdui_components_Feedback.showSuccess("表单提交成功！");
 	},"outline");
-	var inputCard = psychmdui_PsychMdui.createCard("输入框演示","这是使用PsychMDUI创建的文本框：",[]);
-	var textField = psychmdui_PsychMdui.createInput("用户名","请输入用户名");
-	psychmdui_PsychMdui.addElement(buttonContainer,btn1);
-	psychmdui_PsychMdui.addElement(buttonContainer,btn2);
-	psychmdui_PsychMdui.addElement(buttonContainer,btn3);
-	psychmdui_PsychMdui.addElement(demoCard,buttonContainer);
-	psychmdui_PsychMdui.addElement(inputCard,textField);
-	psychmdui_PsychMdui.addElement(container,welcomeCard);
-	psychmdui_PsychMdui.addElement(container,demoCard);
-	psychmdui_PsychMdui.addElement(container,inputCard);
+	var inputCard = psychmdui_components_Layout.createCard("输入框演示","这是使用PsychMDUI创建的文本框：",[]);
+	var textField = psychmdui_components_Form.createInput("用户名","请输入用户名");
+	var formCard = psychmdui_components_Layout.createCard("表单组件演示","各种表单组件的使用示例：",[]);
+	var emailInput = psychmdui_components_Form.createInput("邮箱","请输入邮箱地址","email");
+	var textarea = psychmdui_components_Form.createTextarea("留言","请输入您的留言...",4);
+	var select = psychmdui_components_Form.createSelect("选择您喜欢的技术",[{ value : "haxe", text : "Haxe"},{ value : "js", text : "JavaScript"},{ value : "ts", text : "TypeScript"},{ value : "other", text : "其他"}],"haxe");
+	var checkbox = psychmdui_components_Form.createCheckbox("我同意服务条款",false);
+	var radioGroup = psychmdui_components_Form.createRadioGroup("选择您的身份",[{ value : "developer", text : "开发者"},{ value : "designer", text : "设计师"},{ value : "other", text : "其他"}],"developer");
+	psychmdui_core_PsychMdui.addElement(buttonContainer,btn1);
+	psychmdui_core_PsychMdui.addElement(buttonContainer,btn2);
+	psychmdui_core_PsychMdui.addElement(buttonContainer,btn3);
+	psychmdui_core_PsychMdui.addElement(demoCard,buttonContainer);
+	psychmdui_core_PsychMdui.addElement(inputCard,textField);
+	psychmdui_core_PsychMdui.addElement(formCard,emailInput);
+	psychmdui_core_PsychMdui.addElement(formCard,textarea);
+	psychmdui_core_PsychMdui.addElement(formCard,select);
+	psychmdui_core_PsychMdui.addElement(formCard,checkbox);
+	psychmdui_core_PsychMdui.addElement(formCard,radioGroup);
+	psychmdui_core_PsychMdui.addElement(container,welcomeCard);
+	psychmdui_core_PsychMdui.addElement(container,demoCard);
+	psychmdui_core_PsychMdui.addElement(container,inputCard);
+	psychmdui_core_PsychMdui.addElement(container,formCard);
 	window.document.body.appendChild(container);
 	window.setTimeout(function() {
-		psychmdui_PsychMdui.showNotification("PsychMDUI加载完成！");
+		psychmdui_components_Feedback.showSuccess("PsychMDUI加载完成！");
 	},1000);
+	Main.addCardButtonEvents();
+};
+Main.addCardButtonEvents = function() {
+	var welcomeButtons = window.document.querySelectorAll(".psych-card:first-child .psych-btn");
+	var _g = 0;
+	var _g1 = welcomeButtons.length;
+	while(_g < _g1) {
+		var i = _g++;
+		var button = welcomeButtons[i];
+		button.addEventListener("click",function(e) {
+			var buttonText = (js_Boot.__cast(e.target , HTMLElement)).textContent;
+			switch(buttonText) {
+			case "开始使用":
+				psychmdui_components_Feedback.showSuccess("开始使用PsychMDUI！");
+				break;
+			case "查看文档":
+				psychmdui_components_Feedback.showInfo("文档正在编写中...");
+				break;
+			case "运行示例":
+				psychmdui_components_Feedback.showSuccess("您正在查看示例！");
+				break;
+			default:
+				psychmdui_components_Feedback.showInfo("点击了: " + buttonText);
+			}
+		});
+	}
 };
 Math.__name__ = true;
 var Std = function() { };
@@ -277,84 +317,42 @@ js_Boot.__isNativeObj = function(o) {
 js_Boot.__resolveNativeClass = function(name) {
 	return $global[name];
 };
-var psychmdui_PsychMdui = function() { };
-psychmdui_PsychMdui.__name__ = true;
-psychmdui_PsychMdui.init = function() {
-	if(psychmdui_PsychMdui.initialized) {
-		return;
-	}
-	psychmdui_PsychMdui.loadMduiDependencies();
-	psychmdui_PsychMdui.initialized = true;
-	psychmdui_PsychMdui.debugPrint("PsychMDUI初始化完成");
-};
-psychmdui_PsychMdui.createDialog = function(title,content,buttons) {
-	var $window = psychmdui_PsychMdui.createElement("div","psych-dialog");
-	var buttonsHtml = "";
-	if(buttons != null) {
-		var _g = 0;
-		while(_g < buttons.length) {
-			var btn = buttons[_g];
-			++_g;
-			buttonsHtml += "<button class=\"psych-btn\">" + btn + "</button>";
-		}
-	} else {
-		buttonsHtml = "<button class=\"psych-btn psych-btn-primary\">完成</button>";
-	}
-	$window.innerHTML = "<div class=\"psych-dialog-title\">" + title + "</div><div class=\"psych-dialog-content\">" + content + "</div><div class=\"psych-dialog-actions\">" + buttonsHtml + "</div>";
-	window.document.body.appendChild($window);
-};
-psychmdui_PsychMdui.showNotification = function(message) {
-	var snackbar = psychmdui_PsychMdui.createElement("div","psych-notification");
-	snackbar.innerHTML = "<div class=\"psych-notification-text\">" + message + "</div>";
-	window.document.body.appendChild(snackbar);
-	window.setTimeout(function() {
-		if(snackbar.parentNode != null) {
-			snackbar.parentNode.removeChild(snackbar);
-		}
-	},3000);
-};
-psychmdui_PsychMdui.createCard = function(title,content,actions) {
-	var card = js_Boot.__cast(psychmdui_PsychMdui.createElement("div","psych-card") , HTMLDivElement);
-	var actionsHtml = "";
-	if(actions != null) {
-		actionsHtml = "<div class=\"psych-card-actions\">";
-		var _g = 0;
-		while(_g < actions.length) {
-			var action = actions[_g];
-			++_g;
-			actionsHtml += "<button class=\"psych-btn\">" + action + "</button>";
-		}
-		actionsHtml += "</div>";
-	}
-	card.innerHTML = "<div class=\"psych-card-header\"><div class=\"psych-card-title\">" + title + "</div></div><div class=\"psych-card-content\">" + content + "</div>" + actionsHtml;
-	return card;
-};
-psychmdui_PsychMdui.createButton = function(text,onClick,style,color) {
+var psychmdui_components_Button = function() { };
+psychmdui_components_Button.__name__ = true;
+psychmdui_components_Button.createButton = function(text,onClick,style,color) {
 	if(style == null) {
 		style = "default";
 	}
-	var button = js_Boot.__cast(psychmdui_PsychMdui.createElement("button","psych-btn") , HTMLButtonElement);
-	if(style == "primary") {
-		button.className += " psych-btn-primary";
-	}
-	if(style == "secondary") {
-		button.className += " psych-btn-secondary";
-	}
-	if(style == "outline") {
+	var button = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("button","psych-btn") , HTMLButtonElement);
+	switch(style) {
+	case "outline":
 		button.className += " psych-btn-outline";
+		break;
+	case "primary":
+		button.className += " psych-btn-primary";
+		break;
+	case "secondary":
+		button.className += " psych-btn-secondary";
+		break;
+	default:
 	}
 	if(color != null) {
-		if(color == "red") {
-			button.className += " psych-btn-red";
-		}
-		if(color == "green") {
-			button.className += " psych-btn-green";
-		}
-		if(color == "blue") {
-			button.className += " psych-btn-blue";
+		if(color != null) {
+			switch(color) {
+			case "blue":
+				button.className += " psych-btn-blue";
+				break;
+			case "green":
+				button.className += " psych-btn-green";
+				break;
+			case "red":
+				button.className += " psych-btn-red";
+				break;
+			default:
+			}
 		}
 	}
-	button.innerHTML = text;
+	button.textContent = text;
 	if(onClick != null) {
 		button.onclick = function(e) {
 			onClick();
@@ -362,18 +360,177 @@ psychmdui_PsychMdui.createButton = function(text,onClick,style,color) {
 	}
 	return button;
 };
-psychmdui_PsychMdui.createInput = function(label,placeholder,type) {
+var psychmdui_components_Feedback = function() { };
+psychmdui_components_Feedback.__name__ = true;
+psychmdui_components_Feedback.createDialog = function(title,content,buttons) {
+	var dialog = psychmdui_core_PsychMdui.createElement("div","psych-dialog");
+	var titleElement = psychmdui_core_PsychMdui.createElement("div","psych-dialog-title");
+	titleElement.textContent = title;
+	dialog.appendChild(titleElement);
+	var contentElement = psychmdui_core_PsychMdui.createElement("div","psych-dialog-content");
+	contentElement.textContent = content;
+	dialog.appendChild(contentElement);
+	var actionsElement = psychmdui_core_PsychMdui.createElement("div","psych-dialog-actions");
+	if(buttons != null) {
+		var _g = 0;
+		while(_g < buttons.length) {
+			var buttonText = buttons[_g];
+			++_g;
+			var button = psychmdui_components_Button.createButton(buttonText,function() {
+				psychmdui_components_Feedback.closeDialog(dialog);
+			});
+			actionsElement.appendChild(button);
+		}
+	} else {
+		var closeButton = psychmdui_components_Button.createButton("完成",function() {
+			psychmdui_components_Feedback.closeDialog(dialog);
+		},"primary");
+		actionsElement.appendChild(closeButton);
+	}
+	dialog.appendChild(actionsElement);
+	window.document.body.appendChild(dialog);
+};
+psychmdui_components_Feedback.showNotification = function(message,duration) {
+	if(duration == null) {
+		duration = 3000;
+	}
+	var notification = psychmdui_core_PsychMdui.createElement("div","psych-notification");
+	var textElement = psychmdui_core_PsychMdui.createElement("div","psych-notification-text");
+	textElement.textContent = message;
+	notification.appendChild(textElement);
+	window.document.body.appendChild(notification);
+	window.setTimeout(function() {
+		if(notification.parentNode != null) {
+			notification.parentNode.removeChild(notification);
+		}
+	},duration);
+};
+psychmdui_components_Feedback.showSuccess = function(message) {
+	psychmdui_components_Feedback.showNotification(message,3000);
+};
+psychmdui_components_Feedback.showInfo = function(message) {
+	psychmdui_components_Feedback.showNotification(message,3500);
+};
+psychmdui_components_Feedback.closeDialog = function(dialog) {
+	if(dialog.parentNode != null) {
+		dialog.style.transition = "all 0.2s ease";
+		dialog.style.opacity = "0";
+		dialog.style.transform = "translate(-50%, -50%) scale(0.8)";
+		window.setTimeout(function() {
+			if(dialog.parentNode != null) {
+				dialog.parentNode.removeChild(dialog);
+			}
+		},200);
+	}
+};
+var psychmdui_components_Form = function() { };
+psychmdui_components_Form.__name__ = true;
+psychmdui_components_Form.createInput = function(label,placeholder,type,value) {
 	if(type == null) {
 		type = "text";
 	}
 	if(placeholder == null) {
 		placeholder = "";
 	}
-	var container = js_Boot.__cast(psychmdui_PsychMdui.createElement("div","psych-input") , HTMLDivElement);
-	container.innerHTML = "<label class=\"psych-input-label\">" + label + "</label><input class=\"psych-input-field\" type=\"" + type + "\" placeholder=\"" + placeholder + "\" />";
+	var container = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-input") , HTMLDivElement);
+	var labelElement = psychmdui_core_PsychMdui.createElement("label","psych-input-label");
+	labelElement.textContent = label;
+	var inputElement = psychmdui_core_PsychMdui.createElement("input","psych-input-field");
+	var input = js_Boot.__cast(inputElement , HTMLInputElement);
+	input.type = type;
+	input.placeholder = placeholder;
+	if(value != null) {
+		input.value = value;
+	}
+	container.appendChild(labelElement);
+	container.appendChild(inputElement);
 	return container;
 };
-psychmdui_PsychMdui.createLayout = function(type) {
+psychmdui_components_Form.createTextarea = function(label,placeholder,rows) {
+	if(rows == null) {
+		rows = 3;
+	}
+	if(placeholder == null) {
+		placeholder = "";
+	}
+	var container = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-input") , HTMLDivElement);
+	var labelElement = psychmdui_core_PsychMdui.createElement("label","psych-input-label");
+	labelElement.textContent = label;
+	var textareaElement = psychmdui_core_PsychMdui.createElement("textarea","psych-input-field");
+	var textarea = js_Boot.__cast(textareaElement , HTMLTextAreaElement);
+	textarea.placeholder = placeholder;
+	textarea.rows = rows;
+	container.appendChild(labelElement);
+	container.appendChild(textareaElement);
+	return container;
+};
+psychmdui_components_Form.createSelect = function(label,options,selectedValue) {
+	var container = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-input") , HTMLDivElement);
+	var labelElement = psychmdui_core_PsychMdui.createElement("label","psych-input-label");
+	labelElement.textContent = label;
+	var selectElement = psychmdui_core_PsychMdui.createElement("select","psych-input-field");
+	var select = js_Boot.__cast(selectElement , HTMLSelectElement);
+	var _g = 0;
+	while(_g < options.length) {
+		var option = options[_g];
+		++_g;
+		var optionElement = psychmdui_core_PsychMdui.createElement("option");
+		var optElement = js_Boot.__cast(optionElement , HTMLOptionElement);
+		optElement.value = option.value;
+		optElement.textContent = option.text;
+		if(selectedValue != null && option.value == selectedValue) {
+			optElement.setAttribute("selected","selected");
+		}
+		select.appendChild(optionElement);
+	}
+	container.appendChild(labelElement);
+	container.appendChild(selectElement);
+	return container;
+};
+psychmdui_components_Form.createCheckbox = function(label,checked) {
+	if(checked == null) {
+		checked = false;
+	}
+	var container = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-checkbox") , HTMLDivElement);
+	var inputElement = psychmdui_core_PsychMdui.createElement("input");
+	var input = js_Boot.__cast(inputElement , HTMLInputElement);
+	input.type = "checkbox";
+	input.checked = checked;
+	var labelElement = psychmdui_core_PsychMdui.createElement("label");
+	labelElement.textContent = label;
+	container.appendChild(inputElement);
+	container.appendChild(labelElement);
+	return container;
+};
+psychmdui_components_Form.createRadioGroup = function(label,options,selectedValue) {
+	var container = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-radio-group") , HTMLDivElement);
+	var labelElement = psychmdui_core_PsychMdui.createElement("div","psych-group-label");
+	labelElement.textContent = label;
+	container.appendChild(labelElement);
+	var _g = 0;
+	while(_g < options.length) {
+		var option = options[_g];
+		++_g;
+		var radioContainer = psychmdui_core_PsychMdui.createElement("div","psych-radio-item");
+		var inputElement = psychmdui_core_PsychMdui.createElement("input");
+		var input = js_Boot.__cast(inputElement , HTMLInputElement);
+		input.type = "radio";
+		input.name = label;
+		input.value = option.value;
+		if(selectedValue != null && option.value == selectedValue) {
+			input.checked = true;
+		}
+		var optionLabel = psychmdui_core_PsychMdui.createElement("label");
+		optionLabel.textContent = option.text;
+		radioContainer.appendChild(inputElement);
+		radioContainer.appendChild(optionLabel);
+		container.appendChild(radioContainer);
+	}
+	return container;
+};
+var psychmdui_components_Layout = function() { };
+psychmdui_components_Layout.__name__ = true;
+psychmdui_components_Layout.createContainer = function(type) {
 	if(type == null) {
 		type = "container";
 	}
@@ -384,28 +541,97 @@ psychmdui_PsychMdui.createLayout = function(type) {
 	if(type == "row") {
 		className = "psych-row";
 	}
-	return js_Boot.__cast(psychmdui_PsychMdui.createElement("div",className) , HTMLDivElement);
+	return js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div",className) , HTMLDivElement);
 };
-psychmdui_PsychMdui.addElement = function(parent,child) {
-	parent.appendChild(child);
+psychmdui_components_Layout.createAppBar = function(title,actions) {
+	var appBar = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-app-bar") , HTMLDivElement);
+	var titleElement = psychmdui_core_PsychMdui.createElement("h1","psych-title");
+	titleElement.textContent = title != null ? title : "PsychMDUI";
+	appBar.appendChild(titleElement);
+	if(actions != null) {
+		var _g = 0;
+		while(_g < actions.length) {
+			var action = actions[_g];
+			++_g;
+			appBar.appendChild(action);
+		}
+	}
+	return appBar;
 };
-psychmdui_PsychMdui.createElement = function(tagName,className) {
+psychmdui_components_Layout.createCard = function(title,content,actions) {
+	var card = js_Boot.__cast(psychmdui_core_PsychMdui.createElement("div","psych-card") , HTMLDivElement);
+	var header = psychmdui_core_PsychMdui.createElement("div","psych-card-header");
+	var titleElement = psychmdui_core_PsychMdui.createElement("div","psych-card-title");
+	titleElement.textContent = title;
+	header.appendChild(titleElement);
+	card.appendChild(header);
+	var contentElement = psychmdui_core_PsychMdui.createElement("div","psych-card-content");
+	contentElement.textContent = content;
+	card.appendChild(contentElement);
+	if(actions != null) {
+		var actionsContainer = psychmdui_core_PsychMdui.createElement("div","psych-card-actions");
+		var _g = 0;
+		while(_g < actions.length) {
+			var action = actions[_g];
+			++_g;
+			var button = psychmdui_components_Button.createButton(action);
+			actionsContainer.appendChild(button);
+		}
+		card.appendChild(actionsContainer);
+	}
+	return card;
+};
+var psychmdui_core_PsychMdui = function() { };
+psychmdui_core_PsychMdui.__name__ = true;
+psychmdui_core_PsychMdui.init = function() {
+	if(psychmdui_core_PsychMdui.initialized) {
+		return;
+	}
+	psychmdui_utils_StyleLoader.loadStyles();
+	psychmdui_utils_EventManager.init();
+	psychmdui_core_PsychMdui.initialized = true;
+	psychmdui_utils_Debug.log("PsychMDUI初始化完成");
+};
+psychmdui_core_PsychMdui.createElement = function(tagName,className) {
+	return psychmdui_utils_DomUtils.createElement(tagName,className);
+};
+psychmdui_core_PsychMdui.addElement = function(parent,child) {
+	psychmdui_utils_DomUtils.addElement(parent,child);
+};
+var psychmdui_utils_Debug = function() { };
+psychmdui_utils_Debug.__name__ = true;
+psychmdui_utils_Debug.log = function(message) {
+	console.log("src/psychmdui/utils/Debug.hx:14:","[PsychMDUI] " + message);
+	if(window.console != null) {
+		window.console.log("[PsychMDUI]",message);
+	}
+};
+var psychmdui_utils_DomUtils = function() { };
+psychmdui_utils_DomUtils.__name__ = true;
+psychmdui_utils_DomUtils.createElement = function(tagName,className) {
 	var element = window.document.createElement(tagName);
 	if(className != null) {
 		element.className = className;
 	}
 	return element;
 };
-psychmdui_PsychMdui.debugPrint = function(message) {
-	console.log("src/psychmdui/PsychMdui.hx:178:","[PsychMDUI] " + message);
-	if(window.console != null) {
-		window.console.log("[PsychMDUI]",message);
-	}
+psychmdui_utils_DomUtils.addElement = function(parent,child) {
+	parent.appendChild(child);
 };
-psychmdui_PsychMdui.loadMduiDependencies = function() {
+var psychmdui_utils_EventManager = function() { };
+psychmdui_utils_EventManager.__name__ = true;
+psychmdui_utils_EventManager.init = function() {
+	psychmdui_utils_Debug.log("EventManager initialized");
+};
+var psychmdui_utils_StyleLoader = function() { };
+psychmdui_utils_StyleLoader.__name__ = true;
+psychmdui_utils_StyleLoader.loadStyles = function() {
 	var style = js_Boot.__cast(window.document.createElement("style") , HTMLStyleElement);
-	style.innerHTML = "\r\n            /* 基础重置 */\r\n            * {\r\n                box-sizing: border-box;\r\n                margin: 0;\r\n                padding: 0;\r\n            }\r\n            \r\n            body {\r\n                font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\r\n                background-color: #f8f9fa;\r\n                color: #333;\r\n                line-height: 1.6;\r\n                -webkit-font-smoothing: antialiased;\r\n                -moz-osx-font-smoothing: grayscale;\r\n            }\r\n            \r\n            /* 容器样式 */\r\n            .psych-container {\r\n                max-width: 1200px;\r\n                margin: 0 auto;\r\n                padding: 20px;\r\n            }\r\n            \r\n            /* 顶部应用栏 */\r\n            .psych-app-bar {\r\n                background-color: #fff;\r\n                color: #333;\r\n                padding: 16px 24px;\r\n                border-bottom: 1px solid #e0e0e0;\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: space-between;\r\n                position: sticky;\r\n                top: 0;\r\n                z-index: 1000;\r\n                box-shadow: 0 2px 4px rgba(0,0,0,0.1);\r\n            }\r\n            \r\n            /* 卡片样式 - 扁平设计 */\r\n            .psych-card {\r\n                background: #fff;\r\n                border-radius: 0;\r\n                border: 1px solid #e0e0e0;\r\n                box-shadow: 0 1px 3px rgba(0,0,0,0.1);\r\n                margin-bottom: 20px;\r\n                transition: all 0.2s ease;\r\n            }\r\n            \r\n            .psych-card:hover {\r\n                box-shadow: 0 4px 6px rgba(0,0,0,0.15);\r\n                transform: translateY(-1px);\r\n            }\r\n            \r\n            .psych-card-header {\r\n                padding: 20px 24px 16px;\r\n                border-bottom: 1px solid #f0f0f0;\r\n                background-color: #fafafa;\r\n            }\r\n            \r\n            .psych-card-header-title {\r\n                font-size: 20px;\r\n                font-weight: 600;\r\n                color: #1a73e8;\r\n                margin: 0;\r\n            }\r\n            \r\n            .psych-card-content {\r\n                padding: 24px;\r\n                font-size: 16px;\r\n                line-height: 1.5;\r\n                color: #5f6368;\r\n            }\r\n            \r\n            .psych-card-actions {\r\n                padding: 16px 24px;\r\n                display: flex;\r\n                gap: 8px;\r\n                flex-wrap: wrap;\r\n                background-color: #fafafa;\r\n            }\r\n            \r\n            /* 按钮样式 - 极简主义 */\r\n            .psych-btn {\r\n                padding: 10px 20px;\r\n                border: 1px solid #d0d0d0;\r\n                border-radius: 0;\r\n                background: #fff;\r\n                color: #5f6368;\r\n                font-size: 14px;\r\n                font-weight: 500;\r\n                text-transform: uppercase;\r\n                cursor: pointer;\r\n                transition: all 0.15s ease;\r\n                outline: none;\r\n            }\r\n            \r\n            .psych-btn:hover {\r\n                background-color: #f8f9fa;\r\n                border-color: #5f6368;\r\n                color: #1a73e8;\r\n            }\r\n            \r\n            .psych-btn:active {\r\n                transform: translateY(1px);\r\n                box-shadow: none;\r\n            }\r\n            \r\n            .psych-btn:focus {\r\n                outline: 2px solid #1a73e8;\r\n                outline-offset: 2px;\r\n            }\r\n            \r\n            .psych-btn-primary {\r\n                background-color: #1a73e8;\r\n                color: #fff;\r\n                border-color: #1a73e8;\r\n            }\r\n            \r\n            .psych-btn-primary:hover {\r\n                background-color: #1557b0;\r\n                border-color: #1557b0;\r\n            }\r\n            \r\n            .psych-btn-secondary {\r\n                background-color: #5f6368;\r\n                color: #fff;\r\n                border-color: #5f6368;\r\n            }\r\n            \r\n            .psych-btn-secondary:hover {\r\n                background-color: #494c50;\r\n            }\r\n            \r\n            .psych-btn-outline {\r\n                background: transparent;\r\n                color: #1a73e8;\r\n                border-color: #1a73e8;\r\n            }\r\n            \r\n            .psych-btn-outline:hover {\r\n                background: rgba(26, 115, 232, 0.1);\r\n            }\r\n            \r\n            .psych-btn-red {\r\n                border-color: #ea4335;\r\n                color: #ea4335;\r\n            }\r\n            \r\n            .psych-btn-red:hover {\r\n                background-color: rgba(234, 67, 53, 0.1);\r\n            }\r\n            \r\n            .psych-btn-green {\r\n                border-color: #34a853;\r\n                color: #34a853;\r\n            }\r\n            \r\n            .psych-btn-green:hover {\r\n                background-color: rgba(52, 168, 83, 0.1);\r\n            }\r\n            \r\n            .psych-btn-blue {\r\n                border-color: #1a73e8;\r\n                color: #1a73e8;\r\n            }\r\n            \r\n            /* 输入框样式 - Material Design */\r\n            .psych-input {\r\n                position: relative;\r\n                margin-bottom: 24px;\r\n            }\r\n            \r\n            .psych-input-label {\r\n                position: absolute;\r\n                top: 12px;\r\n                left: 16px;\r\n                color: #5f6368;\r\n                font-size: 14px;\r\n                pointer-events: none;\r\n                transition: all 0.2s ease;\r\n                background: #fff;\r\n                padding: 0 4px;\r\n                z-index: 1;\r\n            }\r\n            \r\n            .psych-input-field {\r\n                display: block;\r\n                width: 100%;\r\n                height: 40px;\r\n                padding: 12px 16px;\r\n                border: 1px solid #d0d0d0;\r\n                border-radius: 0;\r\n                font-size: 16px;\r\n                outline: none;\r\n                transition: all 0.2s ease;\r\n                background: #fff;\r\n            }\r\n            \r\n            .psych-input-field:focus {\r\n                border-color: #1a73e8;\r\n                border-width: 2px;\r\n            }\r\n            \r\n            .psych-input-field:focus + .psych-input-label,\r\n            .psych-input-field:not(:placeholder-shown) + .psych-input-label {\r\n                top: 2px;\r\n                font-size: 12px;\r\n                color: #1a73e8;\r\n            }\r\n            \r\n            .psych-input-field::placeholder {\r\n                color: #9e9e9e;\r\n            }\r\n            \r\n            /* 对话框样式 - 简洁清晰 */\r\n            .psych-dialog {\r\n                background: #fff;\r\n                border: 1px solid #e0e0e0;\r\n                box-shadow: 0 8px 24px rgba(0,0,0,0.2);\r\n                min-width: 320px;\r\n                max-width: 600px;\r\n                margin: 32px auto;\r\n                position: fixed;\r\n                left: 50%;\r\n                top: 50%;\r\n                transform: translate(-50%, -50%);\r\n                z-index: 1000;\r\n                animation: psychDialogSlideIn 0.3s ease;\r\n            }\r\n            \r\n            @keyframes psychDialogSlideIn {\r\n                from {\r\n                    opacity: 0;\r\n                    transform: translate(-50%, -50%) scale(0.9);\r\n                }\r\n                to {\r\n                    opacity: 1;\r\n                    transform: translate(-50%, -50%) scale(1);\r\n                }\r\n            }\r\n            \r\n            .psych-dialog-title {\r\n                padding: 24px 24px 16px;\r\n                font-size: 24px;\r\n                font-weight: 400;\r\n                color: #202124;\r\n                margin: 0;\r\n                border-bottom: 1px solid #f0f0f0;\r\n            }\r\n            \r\n            .psych-dialog-content {\r\n                padding: 20px 24px 24px;\r\n                font-size: 16px;\r\n                line-height: 1.5;\r\n                color: #5f6368;\r\n            }\r\n            \r\n            .psych-dialog-actions {\r\n                padding: 16px 24px;\r\n                display: flex;\r\n                justify-content: flex-end;\r\n                gap: 8px;\r\n                background-color: #fafafa;\r\n            }\r\n            \r\n            .psych-dialog-actions .psych-btn {\r\n                margin-left: 8px;\r\n            }\r\n            \r\n            /* 通知样式 - 底部弹出 */\r\n            .psych-notification {\r\n                background: #323232;\r\n                color: #fff;\r\n                padding: 16px 24px;\r\n                position: fixed;\r\n                left: 50%;\r\n                bottom: 32px;\r\n                transform: translateX(-50%);\r\n                box-shadow: 0 4px 12px rgba(0,0,0,0.32);\r\n                z-index: 9999;\r\n                animation: psychNotificationSlideUp 0.3s ease forwards;\r\n                font-weight: 500;\r\n            }\r\n            \r\n            @keyframes psychNotificationSlideUp {\r\n                from {\r\n                    transform: translateX(-50%) translateY(100%);\r\n                    opacity: 0;\r\n                }\r\n                to {\r\n                    transform: translateX(-50%) translateY(0);\r\n                    opacity: 1;\r\n                }\r\n            }\r\n            \r\n            /* 标题样式 */\r\n            .psych-title {\r\n                font-size: 24px;\r\n                font-weight: 600;\r\n                line-height: 1.3;\r\n                color: #202124;\r\n                margin: 0;\r\n            }\r\n            \r\n            /* 工具栏 */\r\n            .psych-toolbar {\r\n                flex-grow: 1;\r\n            }\r\n            \r\n            /* 响应式设计 */\r\n            @media (max-width: 768px) {\r\n                .psych-container {\r\n                    padding: 16px;\r\n                }\r\n                \r\n                .psych-card {\r\n                    margin-bottom: 16px;\r\n                }\r\n                \r\n                .psych-card-header,\r\n                .psych-card-content,\r\n                .psych-card-actions {\r\n                    padding-left: 16px;\r\n                    padding-right: 16px;\r\n                }\r\n                \r\n                .psych-dialog {\r\n                    margin: 16px;\r\n                    min-width: auto;\r\n                    max-width: calc(100vw - 32px);\r\n                }\r\n                \r\n                .psych-app-bar {\r\n                    padding: 12px 16px;\r\n                }\r\n                \r\n                .psych-btn {\r\n                    padding: 8px 16px;\r\n                    font-size: 13px;\r\n                }\r\n            }\r\n            \r\n            /* 文本对齐 */\r\n            .text-center {\r\n                text-align: center;\r\n            }\r\n            \r\n            .mb-16 {\r\n                margin-bottom: 16px;\r\n            }\r\n            \r\n            .flex {\r\n                display: flex;\r\n            }\r\n            \r\n            .flex-col {\r\n                flex-direction: column;\r\n            }\r\n            \r\n            .gap-8 {\r\n                gap: 8px;\r\n            }\r\n            \r\n            .gap-16 {\r\n                gap: 16px;\r\n            }\r\n            \r\n            .justify-center {\r\n                justify-content: center;\r\n            }\r\n            \r\n            .items-center {\r\n                align-items: center;\r\n            }\r\n            \r\n            /* 加载动画 */\r\n            @keyframes psychFadeIn {\r\n                from {\r\n                    opacity: 0;\r\n                    transform: translateY(20px);\r\n                }\r\n                to {\r\n                    opacity: 1;\r\n                    transform: translateY(0);\r\n                }\r\n            }\r\n            \r\n            .psych-card {\r\n                animation: psychFadeIn 0.5s ease forwards;\r\n            }\r\n        ";
+	style.innerHTML = psychmdui_utils_StyleLoader.getStyles();
 	window.document.head.appendChild(style);
+};
+psychmdui_utils_StyleLoader.getStyles = function() {
+	return "\r\n            /* 基础重置 */\r\n            * {\r\n                box-sizing: border-box;\r\n                margin: 0;\r\n                padding: 0;\r\n            }\r\n            \r\n            body {\r\n                font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\r\n                background-color: #f8f9fa;\r\n                color: #333;\r\n                line-height: 1.6;\r\n                -webkit-font-smoothing: antialiased;\r\n                -moz-osx-font-smoothing: grayscale;\r\n            }\r\n            \r\n            /* 容器样式 */\r\n            .psych-container {\r\n                max-width: 1200px;\r\n                margin: 0 auto;\r\n                padding: 20px;\r\n            }\r\n            \r\n            .psych-container-fluid {\r\n                width: 100%;\r\n                padding: 20px;\r\n            }\r\n            \r\n            .psych-row {\r\n                display: flex;\r\n                flex-wrap: wrap;\r\n                margin: 0 -10px;\r\n            }\r\n            \r\n            /* 顶部应用栏 */\r\n            .psych-app-bar {\r\n                background-color: #fff;\r\n                color: #333;\r\n                padding: 16px 24px;\r\n                border-bottom: 1px solid #e0e0e0;\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: space-between;\r\n                position: sticky;\r\n                top: 0;\r\n                z-index: 1000;\r\n                box-shadow: 0 2px 4px rgba(0,0,0,0.1);\r\n            }\r\n            \r\n            /* 卡片样式 - 扁平设计 */\r\n            .psych-card {\r\n                background: #fff;\r\n                border-radius: 0;\r\n                border: 1px solid #e0e0e0;\r\n                box-shadow: 0 1px 3px rgba(0,0,0,0.1);\r\n                margin-bottom: 20px;\r\n                transition: all 0.2s ease;\r\n            }\r\n            \r\n            .psych-card:hover {\r\n                box-shadow: 0 4px 6px rgba(0,0,0,0.15);\r\n                transform: translateY(-1px);\r\n            }\r\n            \r\n            .psych-card-header {\r\n                padding: 20px 24px 16px;\r\n                border-bottom: 1px solid #f0f0f0;\r\n                background-color: #fafafa;\r\n            }\r\n            \r\n            .psych-card-title {\r\n                font-size: 20px;\r\n                font-weight: 600;\r\n                color: #1a73e8;\r\n                margin: 0;\r\n            }\r\n            \r\n            .psych-card-content {\r\n                padding: 24px;\r\n                font-size: 16px;\r\n                line-height: 1.5;\r\n                color: #5f6368;\r\n            }\r\n            \r\n            .psych-card-actions {\r\n                padding: 16px 24px;\r\n                display: flex;\r\n                gap: 8px;\r\n                flex-wrap: wrap;\r\n                background-color: #fafafa;\r\n            }\r\n            \r\n            /* 按钮样式 - 极简主义 */\r\n            .psych-btn {\r\n                padding: 10px 20px;\r\n                border: 1px solid #d0d0d0;\r\n                border-radius: 0;\r\n                background: #fff;\r\n                color: #5f6368;\r\n                font-size: 14px;\r\n                font-weight: 500;\r\n                text-transform: uppercase;\r\n                cursor: pointer;\r\n                transition: all 0.15s ease;\r\n                outline: none;\r\n            }\r\n            \r\n            .psych-btn:hover {\r\n                background-color: #f8f9fa;\r\n                border-color: #5f6368;\r\n                color: #1a73e8;\r\n            }\r\n            \r\n            .psych-btn:active {\r\n                transform: translateY(1px);\r\n                box-shadow: none;\r\n            }\r\n            \r\n            .psych-btn:focus {\r\n                outline: 2px solid #1a73e8;\r\n                outline-offset: 2px;\r\n            }\r\n            \r\n            .psych-btn-primary {\r\n                background-color: #1a73e8;\r\n                color: #fff;\r\n                border-color: #1a73e8;\r\n            }\r\n            \r\n            .psych-btn-primary:hover {\r\n                background-color: #1557b0;\r\n                border-color: #1557b0;\r\n            }\r\n            \r\n            .psych-btn-secondary {\r\n                background-color: #5f6368;\r\n                color: #fff;\r\n                border-color: #5f6368;\r\n            }\r\n            \r\n            .psych-btn-secondary:hover {\r\n                background-color: #494c50;\r\n            }\r\n            \r\n            .psych-btn-outline {\r\n                background: transparent;\r\n                color: #1a73e8;\r\n                border-color: #1a73e8;\r\n            }\r\n            \r\n            .psych-btn-outline:hover {\r\n                background: rgba(26, 115, 232, 0.1);\r\n            }\r\n            \r\n            .psych-btn-red {\r\n                border-color: #ea4335;\r\n                color: #ea4335;\r\n            }\r\n            \r\n            .psych-btn-red:hover {\r\n                background-color: rgba(234, 67, 53, 0.1);\r\n            }\r\n            \r\n            .psych-btn-green {\r\n                border-color: #34a853;\r\n                color: #34a853;\r\n            }\r\n            \r\n            .psych-btn-green:hover {\r\n                background-color: rgba(52, 168, 83, 0.1);\r\n            }\r\n            \r\n            .psych-btn-blue {\r\n                border-color: #1a73e8;\r\n                color: #1a73e8;\r\n            }\r\n            \r\n            /* 输入框样式 */\r\n            .psych-input {\r\n                position: relative;\r\n                margin-bottom: 24px;\r\n            }\r\n            \r\n            .psych-input-label {\r\n                position: absolute;\r\n                top: 12px;\r\n                left: 16px;\r\n                color: #5f6368;\r\n                font-size: 14px;\r\n                pointer-events: none;\r\n                transition: all 0.2s ease;\r\n                background: #fff;\r\n                padding: 0 4px;\r\n                z-index: 1;\r\n            }\r\n            \r\n            .psych-input-field {\r\n                display: block;\r\n                width: 100%;\r\n                height: 40px;\r\n                padding: 12px 16px;\r\n                border: 1px solid #d0d0d0;\r\n                border-radius: 0;\r\n                font-size: 16px;\r\n                outline: none;\r\n                transition: all 0.2s ease;\r\n                background: #fff;\r\n            }\r\n            \r\n            .psych-input-field:focus {\r\n                border-color: #1a73e8;\r\n                border-width: 2px;\r\n            }\r\n            \r\n            .psych-input-field:focus + .psych-input-label,\r\n            .psych-input-field:not(:placeholder-shown) + .psych-input-label {\r\n                top: 2px;\r\n                font-size: 12px;\r\n                color: #1a73e8;\r\n            }\r\n            \r\n            .psych-input-field::placeholder {\r\n                color: #9e9e9e;\r\n            }\r\n            \r\n            /* 复选框和单选框 */\r\n            .psych-checkbox,\r\n            .psych-radio-item {\r\n                display: flex;\r\n                align-items: center;\r\n                gap: 8px;\r\n                margin-bottom: 12px;\r\n            }\r\n            \r\n            .psych-checkbox input,\r\n            .psych-radio-item input {\r\n                width: 18px;\r\n                height: 18px;\r\n                cursor: pointer;\r\n            }\r\n            \r\n            .psych-group-label {\r\n                font-weight: 600;\r\n                margin-bottom: 12px;\r\n                color: #333;\r\n            }\r\n            \r\n            .psych-radio-group {\r\n                margin-bottom: 24px;\r\n            }\r\n            \r\n            /* 对话框样式 */\r\n            .psych-dialog {\r\n                background: #fff;\r\n                border: 1px solid #e0e0e0;\r\n                box-shadow: 0 8px 24px rgba(0,0,0,0.2);\r\n                min-width: 320px;\r\n                max-width: 600px;\r\n                margin: 32px auto;\r\n                position: fixed;\r\n                left: 50%;\r\n                top: 50%;\r\n                transform: translate(-50%, -50%);\r\n                z-index: 1000;\r\n                animation: psychDialogSlideIn 0.3s ease;\r\n            }\r\n            \r\n            @keyframes psychDialogSlideIn {\r\n                from {\r\n                    opacity: 0;\r\n                    transform: translate(-50%, -50%) scale(0.9);\r\n                }\r\n                to {\r\n                    opacity: 1;\r\n                    transform: translate(-50%, -50%) scale(1);\r\n                }\r\n            }\r\n            \r\n            .psych-dialog-title {\r\n                padding: 24px 24px 16px;\r\n                font-size: 24px;\r\n                font-weight: 400;\r\n                color: #202124;\r\n                margin: 0;\r\n                border-bottom: 1px solid #f0f0f0;\r\n            }\r\n            \r\n            .psych-dialog-content {\r\n                padding: 20px 24px 24px;\r\n                font-size: 16px;\r\n                line-height: 1.5;\r\n                color: #5f6368;\r\n            }\r\n            \r\n            .psych-dialog-actions {\r\n                padding: 16px 24px;\r\n                display: flex;\r\n                justify-content: flex-end;\r\n                gap: 8px;\r\n                background-color: #fafafa;\r\n            }\r\n            \r\n            .psych-dialog-actions .psych-btn {\r\n                margin-left: 8px;\r\n            }\r\n            \r\n            /* 通知样式 */\r\n            .psych-notification {\r\n                background: #323232;\r\n                color: #fff;\r\n                padding: 16px 24px;\r\n                position: fixed;\r\n                left: 50%;\r\n                bottom: 32px;\r\n                transform: translateX(-50%);\r\n                box-shadow: 0 4px 12px rgba(0,0,0,0.32);\r\n                z-index: 9999;\r\n                animation: psychNotificationSlideUp 0.3s ease forwards;\r\n                font-weight: 500;\r\n            }\r\n            \r\n            @keyframes psychNotificationSlideUp {\r\n                from {\r\n                    transform: translateX(-50%) translateY(100%);\r\n                    opacity: 0;\r\n                }\r\n                to {\r\n                    transform: translateX(-50%) translateY(0);\r\n                    opacity: 1;\r\n                }\r\n            }\r\n            \r\n            /* 标题样式 */\r\n            .psych-title {\r\n                font-size: 24px;\r\n                font-weight: 600;\r\n                line-height: 1.3;\r\n                color: #202124;\r\n                margin: 0;\r\n            }\r\n            \r\n            /* 工具类 */\r\n            .text-center {\r\n                text-align: center;\r\n            }\r\n            \r\n            .mb-16 {\r\n                margin-bottom: 16px;\r\n            }\r\n            \r\n            .flex {\r\n                display: flex;\r\n            }\r\n            \r\n            .flex-col {\r\n                flex-direction: column;\r\n            }\r\n            \r\n            .gap-8 {\r\n                gap: 8px;\r\n            }\r\n            \r\n            .gap-16 {\r\n                gap: 16px;\r\n            }\r\n            \r\n            .justify-center {\r\n                justify-content: center;\r\n            }\r\n            \r\n            .items-center {\r\n                align-items: center;\r\n            }\r\n            \r\n            /* 响应式设计 */\r\n            @media (max-width: 768px) {\r\n                .psych-container {\r\n                    padding: 16px;\r\n                }\r\n                \r\n                .psych-card {\r\n                    margin-bottom: 16px;\r\n                }\r\n                \r\n                .psych-card-header,\r\n                .psych-card-content,\r\n                .psych-card-actions {\r\n                    padding-left: 16px;\r\n                    padding-right: 16px;\r\n                }\r\n                \r\n                .psych-dialog {\r\n                    margin: 16px;\r\n                    min-width: auto;\r\n                    max-width: calc(100vw - 32px);\r\n                }\r\n                \r\n                .psych-app-bar {\r\n                    padding: 12px 16px;\r\n                }\r\n                \r\n                .psych-btn {\r\n                    padding: 8px 16px;\r\n                    font-size: 13px;\r\n                }\r\n            }\r\n            \r\n            /* 加载动画 */\r\n            @keyframes psychFadeIn {\r\n                from {\r\n                    opacity: 0;\r\n                    transform: translateY(20px);\r\n                }\r\n                to {\r\n                    opacity: 1;\r\n                    transform: translateY(0);\r\n                }\r\n            }\r\n            \r\n            .psych-card {\r\n                animation: psychFadeIn 0.5s ease forwards;\r\n            }\r\n        ";
 };
 Object.defineProperty(String.prototype,"__class__",{ value : String, enumerable : false, writable : true});
 String.__name__ = true;
@@ -417,6 +643,6 @@ var Bool = Boolean;
 var Class = { };
 var Enum = { };
 js_Boot.__toStr = ({ }).toString;
-psychmdui_PsychMdui.initialized = false;
+psychmdui_core_PsychMdui.initialized = false;
 Main.main();
 })(typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);

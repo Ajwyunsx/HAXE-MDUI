@@ -91,6 +91,14 @@ class Feedback {
     }
     
     /**
+     * 显示信息通知
+     * @param message 信息消息
+     */
+    public static function showInfo(message:String):Void {
+        showNotification(message, 3500);
+    }
+    
+    /**
      * 显示确认对话框
      * @param title 标题
      * @param content 内容
@@ -152,7 +160,7 @@ class Feedback {
     public static function closeAllDialogs():Void {
         var dialogs = Browser.document.querySelectorAll('.psych-dialog');
         for (i in 0...dialogs.length) {
-            var dialog = dialogs[i];
+            var dialog = cast(dialogs[i], Element);
             if (dialog.parentNode != null) {
                 closeDialog(dialog);
             }

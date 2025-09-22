@@ -76,11 +76,12 @@ class Form {
         
         for (option in options) {
             var optionElement = PsychMdui.createElement('option');
-            optionElement.value = option.value;
-            optionElement.textContent = option.text;
+            var optElement = cast(optionElement, OptionElement);
+            optElement.value = option.value;
+            optElement.textContent = option.text;
             
             if (selectedValue != null && option.value == selectedValue) {
-                optionElement.setAttribute('selected', 'selected');
+                optElement.setAttribute('selected', 'selected');
             }
             
             select.appendChild(optionElement);
