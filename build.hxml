@@ -1,0 +1,11 @@
+# Haxe编译配置文件
+# 编译为JavaScript
+-js bin/index.js
+# 主类
+-main Main
+# 源代码路径
+-cp src
+# 启用死代码消除
+-dce full
+# 输出目录
+-D bin
