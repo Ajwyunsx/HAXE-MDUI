@@ -18,45 +18,57 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: steps.deployment.outputs.pageurl 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+      
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.7
-          
+      
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
           haxelib list
-          
-      - name: Clean previous build
-        run: |
-          rm -rf ./bin
-          mkdir ./bin
-
       
-          
+      - name: Clean previous build
+        run: rm -rf ./bin
+      
       - name: Compile
         run: haxe build.hxml
-        
-      - name: Generate version file
+      
+      - name: Verify build output
+        run: |
+          echo "Checking build output..."
+          ls -la ./bin
+          if [ ! -f "./bin/index.html" ]; then
+            echo "ERROR: index.html not found in ./bin directory!"
+            exit 1
+          fi
+      
+      - name: Create 404.html for SPA routing
+        run: |
+          if [ -f "./bin/index.html" ]; then
+            cp ./bin/index.html ./bin/404.html
+            echo "Created 404.html for SPA routing"
+          fi
+      
+      - name: Add version file
         run: |
           echo "Last updated: $(date -u)" > ./bin/version.txt
           echo "Commit: $GITHUB_SHA" >> ./bin/version.txt
-          
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './bin'
-          
+      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
