@@ -20,7 +20,7 @@ class Main {
         var container = Layout.createContainer("container");
         
         // 创建顶部应用栏
-        var refreshButton = Button.createButton("刷新", function() {
+        var refreshButton = Button.createButton("刷新 test", function() {
             Browser.window.location.reload();
         }, "primary");
         var appBar = Layout.createAppBar("PsychMDUI - 简洁现代的Web组件库", [refreshButton]);
@@ -142,4 +142,5 @@ class Main {
         }
     }
 }
+
 
