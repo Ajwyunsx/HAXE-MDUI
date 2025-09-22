@@ -28,7 +28,7 @@ class Main {
         
         // 创建欢迎卡片
         var welcomeCard = Layout.createCard(
-            "欢迎使用PsychMDUI", 
+            "欢迎使用PsychMDUI test", 
             "这是一个基于Haxe开发的简洁现代Web组件库。采用扁平化设计风格，提供直观易用的API接口。",
             ["开始使用", "查看文档", "运行示例"]
         );
@@ -142,3 +142,4 @@ class Main {
         }
     }
 }
+
