@@ -44,7 +44,7 @@ class Main {
         var buttonContainer = PsychMdui.createElement('div', 'flex gap-8');
         
         var btn1 = Button.createButton("显示通知", function() {
-            Feedback.showSuccess("这是一个成功通知！");
+            Feedback.showSuccess("这是一个成功hhhh通知！");
         }, "primary");
         
         var btn2 = Button.createButton("弹出对话框", function() {
@@ -142,5 +142,6 @@ class Main {
         }
     }
 }
+
 
 
