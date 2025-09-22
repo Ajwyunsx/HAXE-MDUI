@@ -35,7 +35,7 @@ jobs:
           haxelib list
       
       - name: Clean previous build
-        run: rm -rf ./bin
+        run: rm -rf ./bin/index.js
       
       - name: Compile
         run: haxe build.hxml
